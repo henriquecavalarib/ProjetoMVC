@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Livro e Empréstimo</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; background-color: #f7f9fa; color: #333; }
+        .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); margin-bottom: 20px; max-width: 650px; }
+        h1, h2 { color: #2c3e50; }
+        .badge { display: inline-block; padding: 4px 8px; background-color: #3498db; color: #fff; border-radius: 4px; font-size: 0.85em; }
+        .status-badge { display: inline-block; padding: 4px 8px; background-color: #27ae60; color: #fff; border-radius: 4px; font-weight: bold; }
+        .status-badge.atrasado { background-color: #e74c3c; }
+        p { margin: 8px 0; }
+        strong { color: #2c3e50; }
+        a.voltar { display: inline-block; margin-top: 10px; color: #3498db; text-decoration: none; font-weight: bold; }
+        a.voltar:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>Sistema de Biblioteca</h1>
+
+    <div class="card">
+        <h2>Livro</h2>
+        <p><strong>Título:</strong> <span th:text="${livro.titulo}">Título</span></p>
+        <p><strong>Autor:</strong> <span th:text="${livro.autor}">Autor</span></p>
+        <p><strong>ISBN:</strong> <span th:text="${livro.isbn}">ISBN</span></p>
+        <p><strong>Ano de Publicação:</strong> <span th:text="${livro.anoPublicacao}">Ano</span></p>
+        <p>
+            <strong>Status do Livro:</strong>
+            <span th:text="${livro.disponivel ? 'Disponível no Acervo' : 'Emprestado'}">Disponível</span>
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>Categoria (Classificação)</h2>
+        <p><strong>Gênero / Categoria:</strong> <span class="badge" th:text="${categoria.nome}">Categoria</span></p>
+        <p><strong>Área:</strong> <span th:text="${categoria.area}">Área</span></p>
+        <p><strong>Descrição:</strong> <span th:text="${categoria.descricao}">Descrição</span></p>
+    </div>
+
+    <div class="card">
+        <h2>Usuário (Aluno / Membro)</h2>
+        <p><strong>Nome:</strong> <span th:text="${usuario.nome}">Nome</span></p>
+        <p><strong>Matrícula:</strong> <span th:text="${usuario.matricula}">Matrícula</span></p>
+        <p><strong>Email:</strong> <span th:text="${usuario.email}">Email</span></p>
+        <p><strong>Telefone:</strong> <span th:text="${usuario.telefone}">Telefone</span></p>
+        <p><strong>Tipo:</strong> <span th:text="${usuario.tipo}">Tipo</span></p>
+    </div>
+
+    <div class="card">
+        <h2>Registro de Empréstimo</h2>
+        <p><strong>Data de Retirada:</strong> <span th:text="${emprestimo.dataRetirada}">Retirada</span></p>
+        <p><strong>Data Prevista para Devolução:</strong> <span th:text="${emprestimo.dataPrevistaDevolucao}">Devolução</span></p>
+        <p>
+            <strong>Status:</strong>
+            <span class="status-badge" th:text="${emprestimo.status}">Ativo</span>
+        </p>
+    </div>
+
+    <a href="/" class="voltar">&larr; Voltar para Home</a>
+</body>
+</html>
