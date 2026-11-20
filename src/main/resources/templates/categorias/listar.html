@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Categorias</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; background-color: #f7f9fa; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .card { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); margin-bottom: 25px; }
+        h1, h2 { color: #2c3e50; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #34495e; }
+        input[type="text"] { width: 100%; padding: 8px 12px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #27ae60; color: #fff; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        button:hover { background-color: #219150; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { text-align: left; padding: 10px; border-bottom: 1px solid #ddd; }
+        th { background-color: #f4f6f7; color: #2c3e50; }
+        .empty-message { color: #7f8c8d; font-style: italic; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { margin-right: 15px; color: #3498db; text-decoration: none; font-weight: bold; }
+        .nav-links a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links">
+            <a href="/">&larr; Início</a>
+            <a href="/livros">Livros</a>
+            <a href="/autores">Autores</a>
+            <a href="/usuarios">Usuários</a>
+            <a href="/emprestimos">Empréstimos</a>
+        </div>
+
+        <div class="card">
+            <h2>Cadastrar Nova Categoria</h2>
+            <form th:action="@{/categorias}" method="post">
+                <div class="form-group">
+                    <label for="nome">Nome / Gênero:</label>
+                    <input type="text" id="nome" name="nome" required />
+                </div>
+                <div class="form-group">
+                    <label for="area">Área do Conhecimento:</label>
+                    <input type="text" id="area" name="area" required />
+                </div>
+                <div class="form-group">
+                    <label for="descricao">Descrição:</label>
+                    <input type="text" id="descricao" name="descricao" />
+                </div>
+                <button type="submit">Cadastrar Categoria</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Categorias Cadastradas</h2>
+            <div th:if="${categorias == null or #lists.isEmpty(categorias)}" class="empty-message">
+                Nenhuma categoria cadastrada até o momento.
+            </div>
+            <table th:if="${categorias != null and not #lists.isEmpty(categorias)}">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Área</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="categoria : ${categorias}">
+                        <td th:text="${categoria.nome}">Nome</td>
+                        <td th:text="${categoria.area}">Área</td>
+                        <td th:text="${categoria.descricao}">Descrição</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
