@@ -8,34 +8,37 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping({"/livros", "/livro"})
 public class LivroController {
 
     private List<Livro> livros = new ArrayList<>();
 
     @GetMapping("/inicio")
-    public String inicio(){ return "livros/inicio"; }
+    public String inicio() {
+        return "livros/inicio";
+    }
 
     @GetMapping
-    public String listar(Model model){
+    public String listar(Model model) {
         model.addAttribute("livros", livros);
         return "livros/listar";
     }
 
-    @PostMapping({"/livros", "/livro", ""})
-    public String adicionarLivros(@ModelAttribute Livro livro){
+    @PostMapping
+    public String adicionarLivros(@ModelAttribute Livro livro) {
         livros.add(livro);
         return "redirect:/livros";
     }
 
-    @GetMapping("/livro")
+    @GetMapping("/detalhes")
     public String exibirLivro(Model model) {
         Categoria categoria = new Categoria("Ficção / Literatura Brasileira", "Literatura", "Clássicos da literatura brasileira");
 
