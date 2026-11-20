@@ -29,7 +29,7 @@ public class LivroController {
         return "livros/listar";
     }
 
-    @PostMapping
+    @PostMapping({"/livros", "/livro", ""})
     public String adicionarLivros(@ModelAttribute Livro livro){
         livros.add(livro);
         return "redirect:/livros";
@@ -37,10 +37,8 @@ public class LivroController {
 
     @GetMapping("/livro")
     public String exibirLivro(Model model) {
-        // Classificação por gênero ou área
         Categoria categoria = new Categoria("Ficção / Literatura Brasileira", "Literatura", "Clássicos da literatura brasileira");
 
-        // Livro
         Livro livro = new Livro();
         livro.setTitulo("Dom Casmurro");
         livro.setAutor("Machado de Assis");
@@ -48,9 +46,7 @@ public class LivroController {
         livro.setAnoPublicacao(1899);
         livro.setCategoria(categoria);
 
-
         Usuario usuario = new Usuario("Carlos Silva", "2024001", "carlos.silva@universidade.br", "(11) 98765-4321", "Aluno");
-
 
         Emprestimo emprestimo = new Emprestimo(livro, usuario, LocalDate.now(), LocalDate.now().plusDays(14));
 
