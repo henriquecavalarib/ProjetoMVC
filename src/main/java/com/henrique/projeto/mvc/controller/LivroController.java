@@ -7,11 +7,33 @@ import com.henrique.projeto.mvc.model.Usuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class LivroController {
+
+    private List<Livro> livros = new ArrayList<>();
+
+    @GetMapping("/inicio")
+    public String inicio(){ return "livros/inicio"; }
+
+    @GetMapping
+    public String listar(Model model){
+        model.addAttribute("livros", livros);
+        return "livros/listar";
+    }
+
+    @PostMapping
+    public String adicionarLivros(@ModelAttribute Livro livro){
+        livros.add(livro);
+        return "redirect:/livros";
+    }
 
     @GetMapping("/livro")
     public String exibirLivro(Model model) {
@@ -26,10 +48,10 @@ public class LivroController {
         livro.setAnoPublicacao(1899);
         livro.setCategoria(categoria);
 
-        // Dados do aluno ou membro que realiza empréstimos
+
         Usuario usuario = new Usuario("Carlos Silva", "2024001", "carlos.silva@universidade.br", "(11) 98765-4321", "Aluno");
 
-        // Registro de retirada e devolução de livros
+
         Emprestimo emprestimo = new Emprestimo(livro, usuario, LocalDate.now(), LocalDate.now().plusDays(14));
 
         model.addAttribute("livro", livro);
